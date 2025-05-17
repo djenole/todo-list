@@ -10,6 +10,10 @@ class TaskService {
         this.tasks.push(task);
         this.saveTasks();
     }
+    updateTask(updatedTask) {
+        this.tasks = this.tasks.map(task => task.id === updatedTask.id ? updatedTask : task);
+        this.saveTasks();
+    }
     getTasks() {
         return this.tasks;
     }

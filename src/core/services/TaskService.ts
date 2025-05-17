@@ -11,6 +11,13 @@ export class TaskService {
     this.saveTasks();
   }
 
+  updateTask(updatedTask: Task): void {
+    this.tasks = this.tasks.map(task =>
+      task.id === updatedTask.id ? updatedTask : task
+    );
+    this.saveTasks();
+  }
+
   getTasks(): Task[] {
     return this.tasks;
   }
