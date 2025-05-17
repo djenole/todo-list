@@ -33,6 +33,17 @@ class TaskService {
         this.tasks = this.tasks.filter(task => !task.completed);
         this.saveTasks();
     }
+    getCategoryStats(category) {
+        const categoryTasks = this.tasks.filter(t => t.category === category);
+        const pending = categoryTasks.filter(t => !t.completed).length;
+        return {
+            total: categoryTasks.length,
+            pending,
+            progress: categoryTasks.length > 0
+                ? Math.round((pending / categoryTasks.length) * 100)
+                : 0
+        };
+    }
     loadTasks() {
         const savedTasks = localStorage.getItem('tasks');
         this.tasks = savedTasks ? JSON.parse(savedTasks) : [];

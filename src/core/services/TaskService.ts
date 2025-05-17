@@ -42,6 +42,21 @@ export class TaskService {
     this.saveTasks();
   }
 
+   getCategoryStats(category: 'Trabalho' | 'Estudo' | 'Pessoal') {
+        const categoryTasks = this.tasks.filter(t => t.category === category);
+        const pending = categoryTasks.filter(t => !t.completed).length;
+        
+        return {
+            total: categoryTasks.length,
+            pending,
+            progress: categoryTasks.length > 0 
+                ? Math.round((pending / categoryTasks.length) * 100) 
+                : 0
+        };
+    }
+
+ 
+
   private loadTasks(): void {
     const savedTasks = localStorage.getItem('tasks');
     this.tasks = savedTasks ? JSON.parse(savedTasks) : [];
