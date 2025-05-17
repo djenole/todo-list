@@ -29,6 +29,10 @@ class TaskService {
         }
         return filteredTasks;
     }
+    clearCompletedTask() {
+        this.tasks = this.tasks.filter(task => !task.completed);
+        this.saveTasks();
+    }
     loadTasks() {
         const savedTasks = localStorage.getItem('tasks');
         this.tasks = savedTasks ? JSON.parse(savedTasks) : [];
