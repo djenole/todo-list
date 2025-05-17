@@ -14,8 +14,20 @@ class TaskService {
         this.tasks = this.tasks.map(task => task.id === updatedTask.id ? updatedTask : task);
         this.saveTasks();
     }
-    getTasks() {
-        return this.tasks;
+    getTasks(filter = 'all', searchTerm = '') {
+        let filteredTasks = this.tasks;
+        switch (filter) {
+            case 'active':
+                filteredTasks = filteredTasks.filter(task => !task.completed);
+                break;
+            case 'completed':
+                filteredTasks = filteredTasks.filter(task => task.completed);
+                break;
+        }
+        if (searchTerm) {
+            filteredTasks = filteredTasks.filter(task => task.title.toLowerCase().includes(searchTerm.toLowerCase()));
+        }
+        return filteredTasks;
     }
     loadTasks() {
         const savedTasks = localStorage.getItem('tasks');

@@ -18,8 +18,23 @@ export class TaskService {
     this.saveTasks();
   }
 
-  getTasks(): Task[] {
-    return this.tasks;
+  getTasks(filter: string = 'all', searchTerm: string = ''): Task[] {
+    let filteredTasks = this.tasks;
+
+    switch(filter) {
+      case 'active':
+        filteredTasks = filteredTasks.filter(task => !task.completed);
+        break;
+      case 'completed':
+        filteredTasks = filteredTasks.filter(task => task.completed);
+        break;
+    }
+      if(searchTerm) {
+        filteredTasks = filteredTasks.filter(task =>
+          task.title.toLowerCase().includes(searchTerm.toLowerCase())
+      );
+    }
+    return filteredTasks;
   }
 
   private loadTasks(): void {
