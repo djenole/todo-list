@@ -8,6 +8,7 @@ class TaskService {
     }
     addTask(task) {
         this.tasks.push(task);
+        this.saveTasks();
     }
     getTasks() {
         return this.tasks;

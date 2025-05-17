@@ -8,6 +8,7 @@ export class TaskService {
   }
   addTask(task: Task): void {
     this.tasks.push(task);
+    this.saveTasks();
   }
 
   getTasks(): Task[] {
